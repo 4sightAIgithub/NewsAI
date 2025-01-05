@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,6 +47,7 @@
             <section id="actionSelection">
                 <label for="actionSelect">Choose Action:</label>
                 <select id="actionSelect">
+                    <option value="select_option">🌟 Select an Option</option>
                     <option value="record">🎙 Start Recording</option>
                     <option value="upload">📁 Upload Audio</option>
                 </select>
@@ -136,14 +138,34 @@
             // Auto-generate session ID
             sessionIdElement.value = `session-${Date.now()}`;
 
-            // Toggle between recording and upload controls
+             // Toggle between recording and upload controls
             actionSelect.addEventListener('change', () => {
-                if (actionSelect.value === 'record') {
+                const selectedOption = actionSelect.value;
+
+                if (selectedOption === 'record') {
+                    // Show recording controls and hide upload controls
                     recordingControls.style.display = 'block';
                     uploadControls.style.display = 'none';
-                } else {
+
+                    // Disable upload controls
+                    audioFileInput.disabled = true;
+                    uploadAudioButton.disabled = true;
+                } else if (selectedOption === 'upload') {
+                    // Show upload controls and hide recording controls
                     recordingControls.style.display = 'none';
                     uploadControls.style.display = 'block';
+
+                    // Enable upload controls
+                    audioFileInput.disabled = false;
+                    uploadAudioButton.disabled = false;
+                } else {
+                    // Hide both sections if "Select an Option" is chosen
+                    recordingControls.style.display = 'none';
+                    uploadControls.style.display = 'none';
+
+                    // Disable upload controls
+                    audioFileInput.disabled = true;
+                    uploadAudioButton.disabled = true;
                 }
             });
 
