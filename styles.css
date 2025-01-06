@@ -73,6 +73,59 @@ body {
     fill: white;
 }
 
+/* Toggle Button Styles */
+.startsession-button {
+    position: fixed;
+    top: 70px; /* Position the button 20px from the top */
+    left: 15px; /* Position the button 20px from the right */
+    z-index: 1100;
+    background: linear-gradient(45deg, #6c757d, #343a40);
+    border: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.startsession-button:hover {
+    transform: scale(1.1);
+}
+
+/* Tooltip text styles */
+.startsession-button::after {
+    content: "Start New Session"; /* The text to show on hover */
+    position: absolute;
+    top: 50%; /* Center the tooltip vertically in relation to the button */
+    left: 55px; /* Position the tooltip 55px to the right of the button */
+    transform: translateY(-50%); /* Vertically center the tooltip */
+    background-color: #343a40;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: none; /* Initially hide the text */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    white-space: nowrap;
+}
+
+/* Show tooltip when hovering over the button */
+.startsession-button:hover::after {
+    display: block;
+    opacity: 1;
+}
+
+.startsession-button svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
 .hidden {
     transform: translateX(-100%);
 }
