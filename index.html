@@ -392,7 +392,6 @@ async function submitTeluguText(recordedText) {
     }
 }
 
-// Function to end the session and display compiled text
 async function endSession() {
     const sessionId = document.getElementById("sessionId").value;
     const url = `https://foursightai-v2-0.onrender.com/end-session/`;
@@ -417,12 +416,20 @@ async function endSession() {
         window.compiledSpeechToText = data.compiled_speech_to_text;
         window.cleanedSpeechToText = data.cleaned_speech_to_text.cleaned_text;
 
+        // Extract the city name using a regular expression
+        const locationText = data.cleaned_speech_to_text.location_text;
+        const cityMatch = locationText.match(/City:\s*([^\s]*)/); // Regex to match 'City: <city name>'
+
+        // If a city is found, use it; otherwise, default to 'Unknown Location'
+        const city = cityMatch ? cityMatch[1].trim() : 'Unknown Location';
+
         // Print the entire response with proper formatting and spacing
         document.getElementById("outputText").innerHTML = `
             <strong>Compiled Text:</strong> ${data.compiled_speech_to_text}<br>
             <strong>Cleaned Text:</strong> ${data.cleaned_speech_to_text.cleaned_text}<br>
             <strong>Category Of Text:</strong> ${data.cleaned_speech_to_text.categorized_text}<br>
             <strong>Location of Text:</strong> ${data.cleaned_speech_to_text.location_text}<br>
+            <strong>Report sent to the ${city} desk's corresponding email.</strong>
         `;
 
         // Show the 'Show Difference' button
