@@ -12,7 +12,11 @@
 <body>
 
     <!-- Sidebar and Toggle Button -->
+    <button id="startSessionButton" class="startsession-button" onclick="restartPage()">
+        +
+    </button>    
     <div class="sidebar-container">
+        <!-- Start Session Button -->
         <div class="toggle-square" onclick="toggleSessionList()"></div>
         <button class="toggle-button" onclick="toggleSessionList()">☰</button>
         <div class="sidebar" id="sidebar">
@@ -232,6 +236,10 @@
             document.getElementById('endSession').addEventListener('click', endSession);
         });
 
+function restartPage() {
+    location.reload();  // Refreshes the page
+    }
+                
 // Function to fetch the compiled speech-to-text data based on session ID
 async function fetchCompiledSpeechToText(sessionId) {
     // Define the URL for the API call using the session ID
@@ -411,13 +419,10 @@ async function endSession() {
 
         // Print the entire response with proper formatting and spacing
         document.getElementById("outputText").innerHTML = `
-            <strong>Compiled Speech to Text:</strong> ${data.compiled_speech_to_text}<br>
-            <strong>Cleaned Speech to Text:</strong> ${data.cleaned_speech_to_text.cleaned_text}<br>
-            <strong>Category Of Spoken Text:</strong> ${data.cleaned_speech_to_text.categorized_text}<br>
-            <strong>Location of Spoken Text:</strong> ${data.cleaned_speech_to_text.location_text}<br>
-            <strong>Cleaned File Text:</strong> ${data.cleaned_file_text}<br>
-            <strong>Category Of File Text:</strong> ${data.cleaned_file_text.categorized_text}<br>
-            <strong>Location of File Text:</strong> ${data.cleaned_file_text.location_text}<br>
+            <strong>Compiled Text:</strong> ${data.compiled_speech_to_text}<br>
+            <strong>Cleaned Text:</strong> ${data.cleaned_speech_to_text.cleaned_text}<br>
+            <strong>Category Of Text:</strong> ${data.cleaned_speech_to_text.categorized_text}<br>
+            <strong>Location of Text:</strong> ${data.cleaned_speech_to_text.location_text}<br>
         `;
 
         // Show the 'Show Difference' button
@@ -428,7 +433,6 @@ async function endSession() {
         hideLoading();
     }
 }
-
 
 function showDifferences() {
     // Use the globally stored data from the endSession function
